@@ -4,17 +4,17 @@ export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
     // site title
-    title: 'Retypeset',
+    title: '王不二の博客',
     // site subtitle
-    subtitle: 'Revive the beauty of typography',
+    subtitle: '自是桃李树，何畏不成蹊。',
     // site description
     description: 'Retypeset is a static blog theme based on the Astro framework. Inspired by Typography, Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.',
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
-    i18nTitle: true, // true, false
+    i18nTitle: false, // true, false
     // author name
-    author: 'radishzz',
+    author: 'Wongbuer',
     // site url
-    url: 'https://retypeset.radishzz.cc',
+    url: 'https://blog.wongbuer.online',
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icons/favicon.svg', // or https://example.com/favicon.svg
@@ -24,7 +24,7 @@ export const themeConfig: ThemeConfig = {
   // COLOR SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   color: {
     // default theme mode
-    mode: 'light', // light, dark, auto
+    mode: 'auto', // light, dark, auto
     light: {
       // primary color
       // used for title, hover, etc
@@ -58,7 +58,7 @@ export const themeConfig: ThemeConfig = {
     locale: 'zh', // de, en, es, fr, ja, ko, pl, pt, ru, zh, zh-tw
     // more languages
     // not fill in the locale code above again, can be an empty array []
-    moreLocales: ['en', 'es', 'ja', 'ru', 'zh-tw'], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
+    moreLocales: [], // ['de', 'en', 'es', 'fr', 'ja', 'ko', 'pl', 'pt', 'ru', 'zh', 'zh-tw']
     // font styles for post text
     fontStyle: 'sans', // sans, serif
     // date format for posts
@@ -75,7 +75,7 @@ export const themeConfig: ThemeConfig = {
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     // enable comment system
-    enabled: true, // true, false
+    enabled: false, // true, false
     // giscus
     // https://giscus.app/
     giscus: {
@@ -111,15 +111,15 @@ export const themeConfig: ThemeConfig = {
   // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   seo: {
     // @twitter ID
-    twitterID: '@radishzz_',
+    twitterID: '',
     // site verification
     verification: {
       // google search console
       // https://search.google.com/search-console
-      google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM',
+      google: '',
       // bing webmaster tools
       // https://www.bing.com/webmasters
-      bing: '64708CD514011A7965C84DDE1D169F87',
+      bing: '',
       // yandex webmaster
       // https://webmaster.yandex.com
       yandex: '',
@@ -132,7 +132,7 @@ export const themeConfig: ThemeConfig = {
     googleAnalyticsID: '',
     // umami analytics
     // https://cloud.umami.is
-    umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697',
+    umamiAnalyticsID: '',
     // follow verification
     // https://follow.is/
     follow: {
@@ -158,11 +158,11 @@ export const themeConfig: ThemeConfig = {
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/radishzzz/astro-theme-retypeset',
+        url: 'https://github.com/Wongbuer',
       },
       {
         name: 'Email',
-        url: 'email@radishzz.cc',
+        url: 'wongbuer@outlook.com',
       },
       // {
       //   name: 'X',
