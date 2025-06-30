@@ -42,12 +42,6 @@ export interface ThemeConfig {
 
   comment: {
     enabled: boolean
-    waline?: {
-      serverURL?: string
-      emoji?: string[]
-      search?: boolean
-      imageUploader?: boolean
-    }
     giscus?: {
       repo?: string
       repoID?: string
@@ -58,6 +52,15 @@ export interface ThemeConfig {
       reactionsEnabled?: '0' | '1'
       emitMetadata?: '0' | '1'
       inputPosition?: 'top' | 'bottom'
+    }
+    twikoo?: {
+      envId?: string
+    }
+    waline?: {
+      serverURL?: string
+      emoji?: string[]
+      search?: boolean
+      imageUploader?: boolean
     }
   }
 

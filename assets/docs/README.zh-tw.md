@@ -69,7 +69,7 @@ Retypeset 會不定期發布 [新功能](https://github.com/radishzzz/astro-them
 ## 鳴謝
 
 - [Typography](https://github.com/moeyua/astro-theme-typography)
-- [Fuwriu](https://github.com/saicaca/fuwari)
+- [Fuwari](https://github.com/saicaca/fuwari)
 - [Redefine](https://github.com/EvanNotFound/hexo-theme-redefine)
 - [AstroPaper](https://github.com/satnaing/astro-paper)
 - [赫蹏](https://github.com/sivan/heti)
