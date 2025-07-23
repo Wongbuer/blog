@@ -31,7 +31,7 @@ const nextUrl = isTag
 
 <div
   class:list={[
-  'absolute right-7.25vw top-14.6 flex gap-6 min-[823px]:max-[1024px]:right-[calc(50vw-22rem)]',
+  'absolute right-7.25vw top-14.6 flex gap-6 min-[823px]:max-lg:right-[calc(50vw-22rem)]',
   'lg:(fixed bottom-[min(10.27rem+1.92vw,12rem)] right-[max(5rem,calc(50vw-35rem))] top-auto w-14rem)',
 ]}
 >
@@ -53,8 +53,8 @@ const nextUrl = isTag
   <!-- Theme Toggle -->
   <button
     id="theme-toggle-button"
-    aria-label="Switch light/dark theme"
     class="aspect-square w-4 c-secondary active:scale-90 hover:c-primary"
+    aria-label="Switch light/dark theme"
   >
     <ThemeToggleIcon
       aria-hidden="true"
@@ -66,55 +66,68 @@ const nextUrl = isTag
 <!-- Theme Toggle Script >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 <script
   is:inline
-  define:vars={{ lightMode, darkMode }}
+  define:vars={{
+    lightMode,
+    darkMode,
+ }}
 >
-// Update theme
-function updateTheme() {
-  // Toggle website theme
-  document.documentElement.classList.toggle('dark')
+// Apply theme changes
+function applyTheme(isDark) {
+  document.documentElement.classList.toggle('dark', isDark)
 
-  // Get current theme
-  const isDark = document.documentElement.classList.contains('dark')
-  // Update meta theme color
+  // Update meta theme-color tag
   const metaThemeColor = document.head.querySelector('meta[name="theme-color"]')
-  metaThemeColor?.setAttribute('content', isDark ? darkMode : lightMode)
+  if (metaThemeColor && lightMode && darkMode) {
+    metaThemeColor.setAttribute('content', isDark ? darkMode : lightMode)
+  }
 
-  // Update theme configuration in local storage
   localStorage.setItem('theme', isDark ? 'dark' : 'light')
   document.dispatchEvent(new Event('theme-changed'))
 }
 
-// Bind click event to the button
-function setupThemeToggle() {
-  // Locate theme toggle button
-  const themeToggleButton = document.getElementById('theme-toggle-button')
-  if (!themeToggleButton) {
+// Toggle theme mode
+function toggleTheme() {
+  const isDark = !document.documentElement.classList.contains('dark')
+  applyTheme(isDark)
+}
+
+// Handle theme toggle click events
+function handleThemeToggleClick(e) {
+  const target = e.target instanceof Element ? e.target : null
+  const button = target?.closest('#theme-toggle-button')
+
+  if (!button) {
     return
   }
 
-  // Add click listener to the button
-  themeToggleButton.addEventListener('click', () => {
-    // If reduceMotion is enabled or browser doesn't support View Transitions API, update theme directly
-    if (document.documentElement.classList.contains('reduce-motion')) {
-      updateTheme()
-      return
-    }
+  // If reduceMotion is enabled, update theme directly
+  if (document.documentElement.classList.contains('reduce-motion')) {
+    toggleTheme()
+    return
+  }
 
-    // Temporarily add markers during animation to implement view transition and disable CSS transitions
-    document.documentElement.style.setProperty('view-transition-name', 'animation-theme-toggle')
-    document.documentElement.setAttribute('data-theme-changing', '')
+  // Add temporary markers before view transition
+  document.documentElement.style.setProperty('view-transition-name', 'animation-theme-toggle')
+  document.documentElement.setAttribute('data-theme-changing', '')
 
-    // If browser supports View Transitions API, use it to update theme
-    const themeTransition = document.startViewTransition(updateTheme)
-    // Remove markers after animation
-    themeTransition.finished.then(() => {
-      document.documentElement.style.removeProperty('view-transition-name')
-      document.documentElement.removeAttribute('data-theme-changing')
-    })
+  // Use View Transitions API for theme toggle
+  const transition = document.startViewTransition(toggleTheme)
+
+  // Remove temporary markers after view transition
+  transition.finished.then(() => {
+    document.documentElement.style.removeProperty('view-transition-name')
+    document.documentElement.removeAttribute('data-theme-changing')
   })
 }
 
-// Initialize click event (on first load or page transition)
-setupThemeToggle()
-document.addEventListener('astro:after-swap', setupThemeToggle)
+// Bind click event to the button
+document.addEventListener('click', handleThemeToggleClick, { passive: true })
+
+// Listen to system theme changes in real time
+window.matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', (event) => {
+    const isDark = event.matches
+    // Apply system theme preference
+    applyTheme(isDark)
+  })
 </script>

@@ -70,9 +70,9 @@ const filteredHeadings = headings.filter(heading =>
               <a
                 href={`#${heading.slug}`}
                 class:list={[
-                  { 'toc-links-h2 highlight-hover': heading.depth === 2 },
-                  { 'toc-links-h3 highlight-hover': heading.depth === 3 },
-                  { 'toc-links-h4 highlight-hover': heading.depth === 4 },
+                  { 'no-heti toc-links-h2 highlight-hover': heading.depth === 2 },
+                  { 'no-heti toc-links-h3 highlight-hover': heading.depth === 3 },
+                  { 'no-heti toc-links-h4 highlight-hover': heading.depth === 4 },
                 ]}
               >
                 {heading.text}
@@ -142,6 +142,9 @@ const filteredHeadings = headings.filter(heading =>
 
 <!-- TOC Highlight Script >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
 <script>
+let headingObserver: IntersectionObserver | null = null
+let contentEndObserver: IntersectionObserver | null = null
+
 function setupTOCHighlight() {
   const is2xl = window.innerWidth >= 1536
   if (!is2xl) {
@@ -161,12 +164,10 @@ function setupTOCHighlight() {
   const tocLinks = Array.from(tocLinksCollection, item => item as HTMLAnchorElement)
 
   // Determine the top level heading class
-  const hasH2Headings = tocLinks.some(linkItem =>
-    linkItem.classList.contains('toc-links-h2'),
-  )
+  const hasH2Headings = tocLinks.some(linkItem => linkItem.classList.contains('toc-links-h2'))
   const topLevelClass = hasH2Headings ? 'toc-links-h2' : 'toc-links-h3'
 
-  // Build the heading map with the more efficient forEach approach
+  // Build the heading map with the forEach approach
   const headingMap = new Map<string, HTMLAnchorElement>()
   tocLinks.forEach((link) => {
     const id = link.getAttribute('href')?.substring(1)
@@ -175,11 +176,11 @@ function setupTOCHighlight() {
     }
   })
 
-  let currentActiveLink: HTMLAnchorElement | null = null
+  let activeLink: HTMLAnchorElement | null = null
 
   // Find and highlight the nearest parent heading
-  function findAndHighlightParent(childElement: HTMLAnchorElement): void {
-    const currentIndex = tocLinks.indexOf(childElement)
+  function highlightParentLink(childLink: HTMLAnchorElement) {
+    const currentIndex = tocLinks.indexOf(childLink)
     for (let i = currentIndex - 1; i >= 0; i--) {
       const linkItem = tocLinks[i]
       if (linkItem.classList.contains(topLevelClass)) {
@@ -189,8 +190,8 @@ function setupTOCHighlight() {
     }
   }
 
-  function highlightLink(linkElement: HTMLAnchorElement) {
-    if (linkElement === currentActiveLink) {
+  function highlightLink(link: HTMLAnchorElement) {
+    if (link === activeLink) {
       return
     }
 
@@ -200,64 +201,56 @@ function setupTOCHighlight() {
     })
 
     // Highlight current link
-    linkElement.classList.add('toc-link-active')
+    link.classList.add('toc-link-active')
 
     // If not a top level heading, find and highlight the parent heading
-    if (!linkElement.classList.contains(topLevelClass)) {
-      findAndHighlightParent(linkElement)
+    if (!link.classList.contains(topLevelClass)) {
+      highlightParentLink(link)
     }
 
-    currentActiveLink = linkElement
+    activeLink = link
 
     // Scroll to center position
-    linkElement.scrollIntoView({
+    link.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',
     })
   }
 
-  // Intersection observer callback
-  const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
-    const headingId = entries.find(entry => entry.isIntersecting)?.target?.id
-    if (headingId) {
-      const link = headingMap.get(headingId)
-      if (link) {
-        highlightLink(link)
+  // Create observer to monitor headings
+  headingObserver = new IntersectionObserver(
+    (entries: IntersectionObserverEntry[]) => {
+      const headingId = entries.find(entry => entry.isIntersecting)?.target?.id
+      if (headingId) {
+        const link = headingMap.get(headingId)
+        if (link) {
+          highlightLink(link)
+        }
       }
-    }
-  }
+    },
+    {
+      rootMargin: '0% 0% -66% 0%',
+      threshold: [0.4],
+    },
+  )
 
-  // Create the intersection observer
-  const headingObserver = new IntersectionObserver(intersectionCallback, {
-    rootMargin: '0% 0% -66% 0%',
-    threshold: [0.4],
-  })
-
-  // Observe all heading elements
+  // Observe h2, h3, h4 heading elements
   Array.from(document.querySelectorAll('h2, h3, h4'))
     .filter(heading => heading.id && heading.id !== 'footnotes')
-    .forEach(heading => headingObserver.observe(heading))
+    .forEach(heading => headingObserver?.observe(heading))
 
-  // Highlight the first TOC item by default
-  if (tocLinks.length > 0) {
-    highlightLink(tocLinks[0])
-  }
-
-  const postContent = document.getElementById('gsap-post-content')
-  const lastContentElement = postContent?.lastElementChild
-
-  // Exit if no content elements
-  if (!postContent || !lastContentElement) {
+  const contentEndElement = document.getElementById('post-copyright')
+  if (!contentEndElement) {
     return
   }
 
-  // Create observer to monitor the last element
-  const contentEndObserver = new IntersectionObserver(
-    (entries) => {
+  // Create observer to monitor the content end element
+  contentEndObserver = new IntersectionObserver(
+    (entries: IntersectionObserverEntry[]) => {
       // Clear highlights when scrolled past content
       if (!entries[0].isIntersecting && entries[0].boundingClientRect.top < 0) {
         tocLinks.forEach(linkItem => linkItem.classList.remove('toc-link-active'))
-        currentActiveLink = null
+        activeLink = null
       }
     },
     {
@@ -266,11 +259,25 @@ function setupTOCHighlight() {
     },
   )
 
-  // Observe last content element
-  contentEndObserver.observe(lastContentElement)
+  // Observe the content end element
+  contentEndObserver?.observe(contentEndElement)
+
+  // Highlight the first TOC item by default
+  if (tocLinks.length > 0) {
+    highlightLink(tocLinks[0])
+  }
 }
 
-setupTOCHighlight()
+// Cleanup TOC observers if exists
+function cleanupTOCObservers() {
+  headingObserver?.disconnect()
+  contentEndObserver?.disconnect()
+  headingObserver = null
+  contentEndObserver = null
+}
+
 document.addEventListener('astro:after-swap', setupTOCHighlight)
+document.addEventListener('astro:before-swap', cleanupTOCObservers)
+setupTOCHighlight()
 </script>
 
