@@ -1,7 +1,7 @@
 # Retypeset
 
-<img alt="Cover Image" src="../images/retypeset-en-desktop.webp"/>
-<img alt="Cover Image" src="../images/retypeset-en-mobile.webp"/>
+![Cover Image](../images/retypeset-en-desktop.webp)
+![Cover Image](../images/retypeset-en-mobile.webp)
 
 Retypeset — это статическая тема блога, основанная на фреймворке [Astro](https://astro.build/). По-русски название переводится как «Переверстка». Вдохновленная [Typography](https://astro-theme-typography.vercel.app/), Retypeset устанавливает новый визуальный стандарт и переосмысливает компоновку всех страниц, создавая опыт чтения, напоминающий печатные книги, возрождая красоту типографики. Детали в каждом взгляде, элегантность в каждом пространстве.
 

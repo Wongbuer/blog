@@ -30,7 +30,6 @@ interface Props {
 const { postTitle, postDescription, postSlug, supportedLangs = [] } = Astro.props
 const { isPost } = getPageInfo(Astro.url.pathname)
 const fontStyle = themeConfig.global.fontStyle === 'serif' ? 'font-serif' : 'font-sans'
-const animationEnabled = !themeConfig.global.reduceMotion
 const MarginBottom = isPost && themeConfig.comment?.enabled
   ? 'mb-10' // Post page with comments
   : 'mb-12' // Other pages without comments
