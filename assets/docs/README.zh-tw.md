@@ -1,7 +1,7 @@
 # Retypeset
 
-![Cover Image](../images/retypeset-zh-desktop.webp)
-![Cover Image](../images/retypeset-zh-mobile.webp)
+![Cover Image](../images/v1/retypeset-zh-desktop.webp)
+![Cover Image](../images/v1/retypeset-zh-mobile.webp)
 
 Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格主題，中文名為重新編排。本主題以 [活版印字](https://astro-theme-typography.vercel.app/) 為設計靈感，通過建立全新的視覺規範，對所有頁面進行重新編排，打造紙質書頁般的閱讀體驗，再現版式之美。所見皆為細節，方寸盡顯優雅。
 
@@ -17,9 +17,9 @@ Retypeset 是一款基於 [Astro](https://astro.build/) 框架的靜態部落格
 ## 特色
 
 - 基於 Astro 與 UnoCSS 開發
-- 支援 SEO、Sitemap、OpenGraph、TOC、RSS、MDX 和 LaTeX
+- 支援 SEO、Sitemap、OpenGraph、RSS、MDX、LaTeX、Mermaid 和 TOC
 - i18n 多語言
-- 亮色/暗色模式
+- 亮色 / 暗色模式
 - 優雅的過渡動畫
 - 豐富的主題配置
 - 中文排版優化

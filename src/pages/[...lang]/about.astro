@@ -1,38 +1,19 @@
 ---
 import { getCollection, render } from 'astro:content'
-import { defaultLocale, moreLocales } from '@/config'
+import { allLocales } from '@/config'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
 import Layout from '@/layouts/Layout.astro'
 
 export async function getStaticPaths() {
-  type PathItem = {
-    params: { about: string }
-    props: { lang: string }
-  }
-
-  const paths: PathItem[] = []
-
-  // Default locale
-  paths.push({
-    params: { about: 'about/' },
-    props: { lang: defaultLocale },
-  })
-
-  // More locales
-  moreLocales.forEach((lang: string) => {
-    paths.push({
-      params: { about: `${lang}/about/` },
-      props: { lang },
-    })
-  })
-
-  return paths
+  return allLocales.map(lang => ({
+    params: { lang: getLangRouteParam(lang) },
+  }))
 }
 
-const { lang } = Astro.props
-
+const currentLang = getLangFromLocale(Astro.currentLocale)
 // Get about page content with different language
 const allAboutEntries = await getCollection('about')
-const aboutEntry = allAboutEntries.find(entry => entry.data.lang === lang)
+const aboutEntry = allAboutEntries.find(entry => entry.data.lang === currentLang)
   ?? allAboutEntries.find(entry => entry.data.lang === '')
 const { Content } = aboutEntry ? await render(aboutEntry) : { Content: null }
 ---

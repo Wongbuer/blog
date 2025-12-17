@@ -1,7 +1,7 @@
 # Retypeset
 
-![Cover Image](../images/retypeset-zh-desktop.webp)
-![Cover Image](../images/retypeset-zh-mobile.webp)
+![Cover Image](../images/v1/retypeset-zh-desktop.webp)
+![Cover Image](../images/v1/retypeset-zh-mobile.webp)
 
 Retypeset は、日本語では「再組版」と呼ばれる、[Astro](https://astro.build/) フレームワークをベースにした静的ブログテーマです。[活版印字](https://astro-theme-typography.vercel.app/) からデザインのインスピレーションを得て、新しい視覚的な規範を確立し、すべてのページのレイアウトを再構成することで、紙の書籍のような読書体験を提供し、版面の美しさを蘇らせます。見るものすべてが細部にこだわり、限られたスペースの中に優雅さを表現しています。
 
@@ -17,9 +17,9 @@ Retypeset は、日本語では「再組版」と呼ばれる、[Astro](https://
 ## 特徴
 
 - Astro と UnoCSS で構築
-- SEO、サイトマップ、OpenGraph、TOC、RSS、MDX と LaTeX のサポート
-- 多言語対応（i18n）
-- ライト/ダークモード
+- SEO、Sitemap、OpenGraph、RSS、MDX、LaTeX、Mermaid と TOC に対応
+- i18n 多言語対応
+- ライト / ダークモード
 - エレガントな遷移アニメーション
 - 豊富なテーマカスタマイズ
 - 日本語組版の最適化

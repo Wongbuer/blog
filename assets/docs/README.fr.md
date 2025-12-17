@@ -1,7 +1,7 @@
 # Retypeset
 
-![Cover Image](../images/retypeset-en-desktop.webp)
-![Cover Image](../images/retypeset-en-mobile.webp)
+![Cover Image](../images/v1/retypeset-en-desktop.webp)
+![Cover Image](../images/v1/retypeset-en-mobile.webp)
 
 Retypeset est un thème de blog statique basé sur le framework [Astro](https://astro.build/). Inspiré par [Typography](https://astro-theme-typography.vercel.app/), Retypeset établit une nouvelle norme visuelle et réimagine la mise en page de toutes les pages, créant une expérience de lecture rappelant les livres imprimés, faisant revivre la beauté de la typographie. Des détails à chaque regard, de l'élégance dans chaque espace.
 
@@ -17,8 +17,8 @@ Retypeset est un thème de blog statique basé sur le framework [Astro](https://
 ## Fonctionnalités
 
 - Construit avec Astro et UnoCSS
-- Support pour SEO, Sitemap, OpenGraph, TOC, RSS, MDX et LaTeX
-- Support multilingue (i18n)
+- Support pour SEO, Sitemap, OpenGraph, RSS, MDX, LaTeX, Mermaid et TOC
+- i18n support
 - Mode clair / sombre
 - Transitions de vue élégantes
 - Personnalisation riche du thème
